@@ -1,0 +1,41 @@
+.searchList{
+list-style-type: none;
+margin:0;
+padding: 0;
+/* display: none; */
+}
+.hide{
+    display: none;
+}
+
+.searchList li{
+    display: inline-block;
+    width: 100%;
+    margin:0;
+    padding: 0;
+    padding-left: 10px;  
+   
+    margin-bottom:10px;
+    background: rgb(239, 239, 239);
+    border-radius: 12px;
+    /* text-align: center; */
+}
+ul.searchList li .searchItemDetails{
+    padding-top: 16px;  
+    padding-left: 90px;
+    font-size: 22px;
+}
+.searchList li img{
+    height: 100px;
+    margin:10px 0;
+    border-radius: 12px;
+}
+h3.item-heading{
+    margin:0 !important;
+    padding: 0!important;
+    margin-left: 18px !important;
+}
+.card-body{
+    margin:0;
+    padding-top: 0;
+}

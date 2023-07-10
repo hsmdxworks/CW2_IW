@@ -1,0 +1,359 @@
+{
+	"id": "b7780fe2-0c7e-417c-994d-f3685525917d",
+	"name": "All Collection e.g. Lessons, Users, Order",
+	"timestamp": "2023-02-05T04:30:34.507Z",
+	"collection_id": "0-5a122fb3-c190-4c0b-8ca2-79fe851a1133",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 11,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "456470e2-d884-4755-a7c3-c334712a89c1",
+			"name": "index",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/",
+			"time": 608,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				608
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "289a18da-4755-4139-ae4a-0d3a97dbb961",
+			"name": "StaticFolder/test",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/images/cool.txt",
+			"time": 226,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				226
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "ff55da77-0b08-4ee5-8c3f-5b4db5c7217f",
+			"name": "all_lessons",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons/",
+			"time": 298,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				298
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "281dcf28-45be-4b73-a81c-d10701fbc5ad",
+			"name": "all_lesson_byACS/DESC",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons/6/price/desc",
+			"time": 517,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				517
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "e002da34-d726-4da7-b33b-5307d7118c9b",
+			"name": "Post Request",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons/",
+			"time": 314,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				314
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "898f895c-aed6-45e9-ad1b-0dcb458dc2c4",
+			"name": "Delete Lesson By its own ID",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons/lesson/914",
+			"time": 304,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				304
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "58d61bd8-232e-4864-b238-1b160ccc91b1",
+			"name": "Update - Lessons",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons/103",
+			"time": 296,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				296
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "d877aeb3-a4a8-4164-85f6-0dde142d90ee",
+			"name": "Get All Users",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/users/",
+			"time": 326,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				326
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "2993d1ba-e182-450b-864a-9ecf86187775",
+			"name": "Post User",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/users/",
+			"time": 307,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				307
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "b5a521be-bb23-45af-a267-0342b3b9e9f3",
+			"name": "Delete User By ID",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/users/63db787569e1f2895172ca95",
+			"time": 336,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				336
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		},
+		{
+			"id": "93661e81-55e6-4cc6-99bd-1a011aae0c93",
+			"name": "All Order",
+			"url": "http://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/order/",
+			"time": 304,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status Test": true
+			},
+			"testPassFailCounts": {
+				"Status Test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				304
+			],
+			"allTests": [
+				{
+					"Status Test": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 3836,
+	"collection": {
+		"requests": [
+			{
+				"id": "456470e2-d884-4755-a7c3-c334712a89c1",
+				"method": "GET"
+			},
+			{
+				"id": "289a18da-4755-4139-ae4a-0d3a97dbb961",
+				"method": "GET"
+			},
+			{
+				"id": "ff55da77-0b08-4ee5-8c3f-5b4db5c7217f",
+				"method": "GET"
+			},
+			{
+				"id": "281dcf28-45be-4b73-a81c-d10701fbc5ad",
+				"method": "GET"
+			},
+			{
+				"id": "e002da34-d726-4da7-b33b-5307d7118c9b",
+				"method": "POST"
+			},
+			{
+				"id": "898f895c-aed6-45e9-ad1b-0dcb458dc2c4",
+				"method": "DELETE"
+			},
+			{
+				"id": "58d61bd8-232e-4864-b238-1b160ccc91b1",
+				"method": "PUT"
+			},
+			{
+				"id": "d877aeb3-a4a8-4164-85f6-0dde142d90ee",
+				"method": "GET"
+			},
+			{
+				"id": "2993d1ba-e182-450b-864a-9ecf86187775",
+				"method": "POST"
+			},
+			{
+				"id": "b5a521be-bb23-45af-a267-0342b3b9e9f3",
+				"method": "DELETE"
+			},
+			{
+				"id": "93661e81-55e6-4cc6-99bd-1a011aae0c93",
+				"method": "GET"
+			}
+		]
+	}
+}

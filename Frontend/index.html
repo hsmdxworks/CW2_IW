@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After School - Class Booking</title>
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Using Font Awesome -->
+    <script src="https://kit.fontawesome.com/f0b3749e54.js" crossorigin="anonymous"></script>
+    <!-- Using Vue 2 -->
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <!-- Import Lesson.js -->
+    <script src="lessons.js"></script>
+    
+</head>
+<body>
+    <div id="MyApp" v-cloak>
+<!-------- Header -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"><h3 v-text="AppSetting.Title"></h3></a>
+                <div class="" id="" style="width: 100%;">
+                    <div class="navbar-nav " >
+                    <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    <!-- Search functionality -->
+                    <input type="text" placeholder="Search Lessons" class="form-control" v-model="SearchResultLesson" v-on:keyup="SearchActivated">
+                    
+                    <!-- checkout functionality -->
+                    <button class="btn btn-default " @click="showCheckout">
+                        {{ totalItemsInTheCart }}
+                        <span class="fas fa-cart-plus"></span> Checkout
+                    </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+        <div class="clearfix"></div>
+        <div class="container">
+<!-- -------------------- Search Result on input Seach -->
+            <ul class="searchList" v-if="SearchItemsView" id="hide">
+                <h4>Search Results:</h4>
+                <li v-for="lesson in FilterLessons">
+                    <img v-bind:src="lesson.subjectImg" alt="" class=" float-left img-responsive " ><br>
+                    <p class="searchItemDetails">
+                        <strong>{{lesson.subjectName}}</strong>
+                        Price: {{lesson.currency}}{{lesson.price}}</span>
+                        Spaces: <span v-html="lesson.spaces"></span>
+                        Locations: <span v-text="lesson.location"></span>
+                    </p>
+                </li>
+            </ul> 
+        </div>
+        
+
+        <div class="container" v-if="showLessons">
+            <div class="row" >
+                <div class="col-md-3 col-sm-12">
+<!-- ------------------------ Sorting Functionality By Price or Spaces Availability -->
+                    <h4>Sorting:</h4>
+                    <input type="radio" id="b" value="b" v-on:click="sortedProducts(sorted)" v-model="sorted" />
+                    <label for="b">By Price</label><br>
+
+                    <input type="radio" id="a" value="a" v-on:click="sortedProducts(sorted)" v-model="sorted" />
+                    <label for="a">By Availability</label><br>
+                </div>
+<!-- -------------------------------- Fetching Items / Lessons with v-for -->
+                <div class="col-md-9 col-sm-12">
+                    <div class="row">
+                    <div v-for="(lesson, i) in lessons" class="col-md-6 col-sm-6 mt-2" >
+                        <div class="card" >
+                            <img v-bind:src="lesson.subjectImg" class="card-img-top">
+                            <h3 v-text="lesson.subjectName" class="item-heading ml-3"></h3>
+                            
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <p style="margin:0;">Price:{{lesson.currency}}{{lesson.price}}</span></p>
+                                    <p style="margin:0;">Spaces: <span>{{ itemsLeft(lesson) }}</span></p>
+                                    <p style="margin:0;">Location: <span v-text="lesson.location"></span></p>
+                                </p>
+                                <!-- Add to Cart using v-on -->
+                                <i class="fa-solid fa-cart-shopping float-left mr-2" style="margin-top:11px;"></i>
+                                <input type="button" class="btn btn-default float-left" value="Add to Cart" v-on:click="AddToCart(lesson)" v-if="canAddToCart(lesson)">
+                                <div v-else>
+                                    
+                                    <button disabled class="btn btn-danger disabled float-left">Add to Cart</button>
+                                </div> 
+                                <!-- Count Spaces Left and Buttons Functionality -->
+                                <span v-if="itemsLeft(lesson) === 0" class="float-left  ml-2 mt-1">All Out!</span>
+                                <span class="float-left ml-2 mt-1" v-else-if="itemsLeft(lesson) < 5 ">Only {{ itemsLeft(lesson) }} left!</span>
+                                <span v-else class="float-left  ml-2 mt-1">Buy Now!</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- ---------------------------- Shopping Cart -->
+        <div v-else>
+            <div class="container">
+                <h1 class="text-center"><i class="fa-solid fa-cart-shopping" style="margin-top:11px;"></i> Cart Items</h1>
+                <div class="row" >
+                    <div v-for="lesson in lessons" v-if="MyCart.lessons.includes(lesson.id)" class="col-md-3 col-sm-6 mt-2">
+                        <div class="card" >
+                            <img v-bind:src="lesson.subjectImg" class="card-img-top" style="width: 120px">
+                            <h5 v-text="lesson.subjectName" class="ml-3"></h5>
+                            
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <p style="margin:0;">Price:{{lesson.currency}}{{lesson.price}}</span></p>
+                                    <p style="margin:0;">Spaces: {{ CartedItemSpacesCount(lesson.id) }}</span></p>
+                                    <p style="margin:0;">Location: <span v-text="lesson.location"></span></p>
+                                </p>
+                                <i class="fa-solid fa-minus float-left" style="margin-top:11px;margin-right: 10px;"></i>
+                                <input type="button" class="btn btn-default float-left" value="Remove From Cart" v-on:click="RemoveCartItem(lesson)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+<!-- ---------------------------- Checkout Page -->
+                <h1 class="text-center">Register & Checkout Page</h1>
+
+                <p>
+                    <strong>Your Name:</strong>
+                    <input type="text" class="form-control" v-model.trim="checkoutOrder.name" required>
+                </p>
+                <p>
+                    <strong>email:</strong>
+                    <input type="text" class="form-control" v-model.trim="users.email" required>
+                </p>
+                <p>
+                    <strong>password:</strong>
+                    <input type="password" class="form-control" v-model.trim="users.password" required>
+                </p>
+                <p>
+                    <strong>Phone:</strong>
+                    <input type="number" class="form-control" v-model="checkoutOrder.phone" required>
+                </p>
+                <div style="background-color: #e7e7e7;padding:20px;">
+                    <h2 class="text-center">Order Information</h2>
+
+                    <p>
+                        <strong>Name: {{checkoutOrder.name}}</strong>
+                    </p>
+                    <p>
+                        <strong>email: {{users.email}}</strong>
+                    </p>
+                    <p>
+                        <strong>password: {{users.password}}</strong>
+                    </p>
+                    <p>
+                        <strong>Phone: {{checkoutOrder.phone}}</strong>
+                    </p>
+
+
+                    <button v-on:click="submitCheckoutForm" class="btn btn-default"> <i class="fa-solid fa-check"></i> Place Order</button>
+                </div>
+            </div>
+        </div> 
+       <!-- {{sortedProducts}} -->
+       <button @click="saveLessonToDB">
+            <span class="fas fa-save"></span>
+            Test Insert Data Lesson
+       </button>
+    </div>
+     
+    <footer>
+        <div class="container text-center">
+            <hr>
+            Project created on Web VueJS 2 - After School Classes Booking <p class="mt-2">By Harpal Singh - MDX University</p>
+        </div>
+    </footer>
+
+
+<script>
+    let MyStore = new Vue({
+        el:"#MyApp",
+        data:{
+            // Show Lessons or Checkout Visibility
+            showLessons: true,
+            SearchResultLesson:null,
+            AppSetting:{
+                Title: "After School Classes App",
+            },
+            lessons: [],
+            searchResults: [],
+            // Added Cart
+            MyCart: {
+                count: 0,
+                // Created Lessons Array for cart items being added into. 
+                lessons: [],
+            },
+            checkoutOrder:{
+                name: "",
+                phone: 0,
+                lesson_id: 0,
+                spaces: 0
+            },
+            users:{
+                name: "",
+                password: "",
+                email: "",
+            },
+            // For Search Input `
+            SearchItemsView: false,
+            sorted: ''
+        },
+        created: function() {
+            fetch("https://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons").then(
+                function(response) {
+                    response.json().then(
+                        function(json) {
+                        // note that we used ‘webstore.lessons’
+                        // instead of 'this.lessons’
+                        // alert(json);
+                        MyStore.lessons = json;
+                        console.log(lessons);
+                        }
+                    )
+                }
+            );
+        },
+        methods: {           
+            // Checkout Complete Alert
+            submitCheckoutForm(){
+                if (!this.checkoutOrder.phone || !this.users.email || !this.users.password || !this.checkoutOrder.name) {
+                    alert('Please make sure all fields are filled!');
+                    return;
+                }
+                if (this.MyCart.lessons.length === 0 || this.MyCart.lessons.length == null ) {
+                    alert('Cart is empty');
+                    return;
+                }
+                const newUser = {
+                    "name": this.checkoutOrder.name,
+                    "email": this.users.email,
+                    "password": this.users.password
+                }
+                // // Adding new User
+                fetch("https://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/users",{
+                    method: "POST",
+                    headers:{
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newUser)
+                })
+
+                for (let i = 0; i < this.MyCart.lessons.length; i++) {       
+                        const newOrder = {
+                            "name": this.checkoutOrder.name,
+                            "phone": this.checkoutOrder.phone,
+                            "lesson_id": this.MyCart.lessons[i],
+                            "spaces": "1"
+                        }
+                        // // Adding Order into Database
+                        fetch("https://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/order",{
+                            method: "POST",
+                            headers:{
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(newOrder)
+                        })
+                        
+                        // Check Cart Item ID and Lessons ID matched - Updates Lessons
+                        if(MyStore.lessons.id = this.MyCart.lessons[i]){
+                            console.log(this.MyCart.lessons[i]);
+                            console.log(MyStore.lessons.id);
+
+                            // Getting Current Spaces Left from Lesson JSON Object
+                            let obj = MyStore.lessons.filter(item => item.id === this.MyCart.lessons[i]);
+                                console.log(obj[0].spaces);
+                            
+                            // Updating Lesson Data
+                            const newLessonData = {
+                                "id": MyStore.lessons.id,
+                                "subjectImg": obj[0].subjectImg,
+                                "subjectName": obj[0].subjectName,
+                                "location": obj[0].location,
+                                "price": obj[0].price,
+                                "spaces": obj[0].spaces,
+                                "currency": "£"
+                            }
+                            fetch("https://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons/"+MyStore.lessons.id,{
+                                method: "PUT",
+                                headers:{
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(newLessonData)
+                            })
+                        }else{
+                            console.log("Not Matched");
+                        }
+
+                }                                
+                alert('Order submitted and user account has been registered, Successfully!');
+            },
+            // Search Keyup Function
+            SearchActivated: function() {
+                // Searching results visible true
+                this.SearchItemsView = true;
+                
+                if(this.SearchResultLesson == ""){
+                    this.SearchItemsView = false;
+                }
+
+                // 
+                fetch("https://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons/search/"+this.SearchResultLesson).then(
+                    function(response) {
+                        response.json().then(
+                            function(json) {
+                            MyStore.searchResults = json;
+                            // console.log(MyStore.searchResults);
+                            }
+                        )
+                    }
+                );
+            },
+            sortedProducts(sorted) {
+                // Sorting Lessons by Spaces Left
+                if(this.sorted === "b"){
+                    function compare(a, b) {
+                    
+                    if (a.spaces < b.spaces) return 1;
+                    if (a.spaces > b.spaces) return -1;
+                    return 0;
+                    }
+                    
+                    console.log(this.sorted);
+                    return this.lessons.sort(compare);
+                }else{
+                // Sorting Lessons by Price
+                    function compare(a, b) {
+                    if (a.price > b.price) return 1;
+                    if (a.price < b.price) return -1;
+                    return 0;
+                    }
+                    
+                    console.log(this.sorted);
+                    return this.lessons.sort(compare);
+                }
+            },
+            AddToCart: function (lesson) {
+                lesson.spaces -= 1;
+                this.MyCart.lessons.push(lesson.id);   
+                console.log(this.MyCart);
+            },
+            CartedItemSpacesCount(id) {
+            let count = 0;
+            for (let i = 0; i < this.MyCart.lessons.length; i++) {
+                if (this.MyCart.lessons[i] === id) {
+                count++;
+                }
+            }
+            return count;
+            },
+            // Checkout View Visibile True or False
+            showCheckout(){
+                this.showLessons = this.showLessons ? false : true;
+            },
+            // Check if Lesson Spaces Available
+            canAddToCart(lesson) {
+            return lesson.spaces > this.cartCount({id:lesson.id});
+            },
+            // How many spaces left of lesson count
+            itemsLeft(lesson){
+                return lesson.spaces - this.cartCount(lesson.id) ;
+            },
+            // Cart Items Counting and increment into count
+            cartCount(id) {
+            let count = 0;
+                for(let i = 0; i < this.MyCart.lessons.length; i++) {
+                    if (this.MyCart[i] === id) {
+                    count++;
+                    }
+                }
+                return count;
+            },
+            // Removing Items From Cart 
+            RemoveCartItem(lesson){
+                for (let i = 0; i < this.MyCart.lessons.length; i++) {
+                    //Removing Specific ID
+                    if (this.MyCart.lessons[i] == lesson.id) {
+                    //deducting cart count and reverting spaces changes
+                    this.MyCart.lessons.splice(i, 1);
+                    lesson.spaces += 1;
+                    return
+                    }
+                }
+            },
+            saveLessonToDB(){
+                const newLesson = {
+                        "id": 001,
+                        "subjectImg": "images/book-english.png",
+                        "subjectName": "English (New)",
+                        "location": "London",
+                        "price": 40,
+                        "spaces": 25,
+                        "currency": "£"
+                }
+
+                fetch("https://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com/collections/lessons",{
+                    method: "POST",
+                    headers:{
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newLesson)
+                }).then(
+                function(response) {
+                        response.json().then(
+                            function(json){
+                                alert("Success: "+ json.acknowledged);
+                                console.log("Success: "+ json.acknowledged);
+
+                                MyStore.lessons.push(newLesson);
+                            }
+                        )
+                    }
+                );
+            },
+        },
+        computed: {
+            // Counting Items Count next to Checkout 
+            totalItemsInTheCart: function() {
+                return this.MyCart.lessons.length || "";
+            },
+            // Performing search filters in order to perform search
+            FilterLessons(){
+                if (!this.SearchResultLesson) return this.lessons
+                let SearchResultLesson = this.SearchResultLesson.toLowerCase()
+                return this.searchResults.filter(l => {
+                    return l.subjectName.toLowerCase().includes(SearchResultLesson)
+                })
+            }
+            
+        }
+    })
+</script>
+</body>
+</html>

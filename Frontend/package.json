@@ -1,0 +1,19 @@
+{
+  "name": "cst3145-coursework2",
+  "version": "1.0.0",
+  "description": "node.js and express api",
+  "main": "startApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarpalSinghMDXUK/cst3145-coursework2.git"
+  },
+  "author": "Harpal Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HarpalSinghMDXUK/cst3145-coursework2/issues"
+  },
+  "homepage": "https://github.com/HarpalSinghMDXUK/cst3145-coursework2#readme"
+}

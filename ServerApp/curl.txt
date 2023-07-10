@@ -1,0 +1,44 @@
+curl --request GET curl --request GET http://127.0.0.1:3000/collections/lessons
+
+curl --request GET curl --request GET http://127.0.0.1:3000/collections/lessons/100
+
+
+To Post> into collection lessons
+
+curl --header "Content-Type: application/json" --request POST --data ' 
+{
+    "id": 114,
+    "subjectImg": "images/book-computer-science.png",
+    "subjectName": "Computer Science",
+    "location": "London",
+    "price": 14,
+    "spaces": 17,
+    "currency": "£"
+} ' http://localhost:3000/collections/lessons
+
+base_url: 
+https://cst3145coursework2-env.eba-vqei52mg.us-east-1.elasticbeanstalk.com
+
+Show All Lessons
+{{base_url}}/collections/lessons/
+
+POST Lesson
+{{base_url}}/collections/lessons/
+
+Get Lesson By Sorting
+{{base_url}}/collections/lessons/6/price/desc
+
+Delete Lesson By ID
+{{base_url}}/collections/lessons/lesson/914
+
+Update Lesson By ID
+{{base_url}}/collections/lessons/103
+
+Show All Users
+{{base_url}}/collections/users/
+
+Delete User By ID
+{{base_url}}/collections/users/:id
+
+Show All Orders
+{{base_url}}/collections/order/

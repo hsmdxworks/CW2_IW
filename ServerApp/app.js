@@ -18,6 +18,8 @@ let dbUrl = properties.get("db.dbUrl");
 let dbParams = properties.get("db.params");
 const uri = dbPprefix + dbUsername + ":" + dbPwd + dbUrl + dbParams;
 
+
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
 let db = client.db(dbName);
